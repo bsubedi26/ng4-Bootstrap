@@ -1,0 +1,19 @@
+<main class="container">
+    <app-mail-navbar></app-mail-navbar>
+
+  <div class="row">
+    <div class="col-9 mail-content-section">
+      <button (click)="check()" class="btn btn-primary">Check Inbox</button>
+      <h5 *ngIf="user">{{user}}</h5>
+      <div *ngFor="let item of userInbox">
+        <h5>From: {{item.fromEmail}}</h5>
+        <h5>Subject: {{item.subject}}</h5>
+        <h5>Body: {{item.body}}</h5>
+        <span class="sent-date font-300">{{item.createdAt | date:'MMM dd, hh:mm:ss'}}</span>
+        <hr />
+      </div>
+
+    </div>
+  </div>
+
+</main>

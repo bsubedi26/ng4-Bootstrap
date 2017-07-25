@@ -1,14 +1,14 @@
-import { Ng4BootstrapPage } from './app.po';
+import { FeathersChatAngularPage } from './app.po';
 
-describe('ng4-bootstrap App', () => {
-  let page: Ng4BootstrapPage;
+describe('feathers-chat-angular App', () => {
+  let page: FeathersChatAngularPage;
 
   beforeEach(() => {
-    page = new Ng4BootstrapPage();
+    page = new FeathersChatAngularPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getParagraphText()).toEqual('app works!');
   });
 });

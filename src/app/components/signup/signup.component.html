@@ -1,0 +1,32 @@
+<main class="login container">
+  <div class="row">
+    <div class="col-12 col-6-tablet push-3-tablet text-center heading">
+      <h1 class="font-100">Account Signup</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-6-tablet push-3-tablet col-4-desktop push-4-desktop">
+
+      <form (submit)="submitForm(email.value, password.value)" class="form">
+        <fieldset>
+          <input #email class="block" type="email" name="email" placeholder="email">
+        </fieldset>
+
+        <fieldset>
+          <input #password class="block" type="password" name="password" placeholder="password">
+        </fieldset>
+
+        <button type="submit" id="signup" class="button button-primary block signup">
+          Signup
+        </button>
+      </form>
+        
+        <div class="d-flex justify-content-center">
+          <ul class="no-list-decoration">
+            <li class="alert alert-danger" *ngFor="let m of messages">{{m}}</li>
+          </ul>
+        </div>
+
+    </div>
+  </div>
+</main>

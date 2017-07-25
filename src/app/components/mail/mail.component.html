@@ -1,0 +1,74 @@
+<main class="container">
+  <div class="row">
+
+    <div class="col-3 mail-route-section">
+      <ul class="no-list-decoration">
+        <li *ngFor="let navigation of navigations" class="nav-item active">
+          <!--<a class="nav-link"routerLink={{navigation.path}}>{{navigation.name}}</a>-->
+          <a class="nav-link cursor-pointer" (click)="handleRouteClick(navigation)">{{navigation.name}}</a>
+          <hr />
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-9 mail-content-section">
+
+      <div class="jumbotron margin-20">
+        <a class="btn btn-success" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Send Mail
+        </a>
+      </div>
+
+      <div class="collapse" id="collapseExample">
+        <div class="card card-block margin-20">
+
+          <div class="row">
+
+            <div class="col-4">
+
+              <form class="form">
+
+                <fieldset>
+                  <input [(ngModel)]="emailFrom" class="block" type="text" name="from" placeholder="From">
+                </fieldset>
+
+                <fieldset>
+                  <input [(ngModel)]="emailTo" class="block" type="text" name="to" placeholder="To">
+                </fieldset>
+
+                <fieldset>
+                  <input [(ngModel)]="emailSubject" class="block" type="text" name="subject" placeholder="Subject">
+                </fieldset>
+
+                <button type="submit" id="login" (click)="handleSendEmail(emailBody.value)" class="margin-top-20 button button-primary block signup">Send</button>
+              </form>
+
+            </div>
+
+            <div class="col-8">
+
+              <form class="form">
+
+                <fieldset>
+                      <textarea #emailBody class="form-control"  rows="6" placeholder="Compose Mail"></textarea>
+                </fieldset>
+
+              </form>
+
+            </div>
+
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <ul class="no-list-decoration">
+              <li class="alert alert-danger" *ngFor="let m of messages">{{m}}</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</main>
