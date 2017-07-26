@@ -5,9 +5,14 @@ import { SharedModule } from '../shared/shared.module';
 
 import { SignupComponent } from './signup.component';
 import { routerConfig } from './signup.router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routerConfig), SharedModule],
+  imports: [
+    CommonModule, 
+    RouterModule.forChild(routerConfig), 
+    ReactiveFormsModule,
+    SharedModule],
   declarations: [SignupComponent],
   providers: [],
 })

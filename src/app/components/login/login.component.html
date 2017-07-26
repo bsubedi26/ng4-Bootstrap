@@ -7,27 +7,29 @@
   <div class="row">
     <div class="col-12 col-6-tablet push-3-tablet col-4-desktop push-4-desktop">
 
-      <form (submit)="submitForm(email.value, password.value)" class="form">
+      <form [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm.value)">
         <fieldset>
-          <input #email class="block" type="email" name="email" placeholder="email">
+          <input class="block" formControlName="email" placeholder="Email">
         </fieldset>
-
-        <fieldset>
-          <input #password class="block" type="password" name="password" placeholder="password">
-        </fieldset>
-
-        <button type="submit" id="login" class="button button-primary block signup">
-          Log in
-        </button>
-      </form>
-      
-        <!--<app-form-error-message></app-form-error-message>-->
-
-        <div class="d-flex justify-content-center">
-          <ul class="no-list-decoration">
-            <li class="alert alert-danger" *ngFor="let m of messages">{{m}}</li>
-          </ul>
+        <div *ngIf="!loginForm.controls['email'].valid && loginForm.controls['email'].touched">
+          <span *ngIf="loginForm.controls['email'].hasError('required')" class="alert-error">This field is required!</span>
+          <span *ngIf="loginForm.controls['email'].hasError('minlength')" class="alert-error">Please enter a value longer than 6 characters!</span>
         </div>
+        <fieldset>
+          <input class="block" formControlName="password" placeholder="Password">
+        </fieldset>
+        <div *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">
+          <span *ngIf="loginForm.controls['password'].hasError('required')" class="alert-error">This field is required!</span>
+          <span *ngIf="loginForm.controls['password'].hasError('minlength')" class="alert-error">Please enter a value longer than 6 characters!</span>
+        </div>
+        <button [disabled]="!loginForm.valid" type="submit" id="login" class="button button-primary block signup">Submit</button>
+      </form>
+
+      <div class="d-flex justify-content-center">
+        <ul class="no-list-decoration">
+          <li class="alert alert-danger" *ngFor="let m of messages">{{m}}</li>
+        </ul>
+      </div>
     </div>
   </div>
 </main>

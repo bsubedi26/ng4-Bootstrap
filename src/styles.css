@@ -269,3 +269,25 @@ form input {
 .cursor-pointer {
   cursor: pointer;
 }
+/*************************************************/
+/*************************************************/
+/*************************************************/
+.alert-error {
+  background: #f2edda;
+  padding: 10px;
+  font-size: .9em;
+  display: inline-block;
+  animation: 2s alertAnim forwards;
+}
+
+@keyframes alertAnim {
+
+  from {
+    opacity: 0;
+    transform: tranlateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
