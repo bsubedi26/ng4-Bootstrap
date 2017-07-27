@@ -16,7 +16,7 @@
           <span *ngIf="loginForm.controls['email'].hasError('minlength')" class="alert-error">Please enter a value longer than 6 characters!</span>
         </div>
         <fieldset>
-          <input class="block" formControlName="password" placeholder="Password">
+          <input class="block" type="password" formControlName="password" placeholder="Password">
         </fieldset>
         <div *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">
           <span *ngIf="loginForm.controls['password'].hasError('required')" class="alert-error">This field is required!</span>

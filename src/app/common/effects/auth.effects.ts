@@ -5,8 +5,8 @@ import { Action, Store } from '@ngrx/store';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { AuthActions } from '../actions/auth.actions';
-import { FeatherService } from "app/common/services/feather.service";
+import * as AuthActions from '../actions/auth.actions';
+import { FeatherService } from 'app/common/services/feather.service';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
@@ -23,7 +23,7 @@ function simulateHttp(val: any, delay: number) {
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private featherService: FeatherService, public router: Router, private _authActions: AuthActions, private store: Store<any>) { }
+  constructor(private actions$: Actions, private featherService: FeatherService, public router: Router, private store: Store<any>) { }
 
   private _navigate(path) {
     return this.router.navigate(path);
@@ -35,10 +35,12 @@ export class AuthEffects {
   // @Effect({ dispatch: false })
   @Effect()
   loginUser$: Observable<Action> = this.actions$
-    .ofType(AuthActions.LOGIN_USER)
-    .map(action => action.payload)
+    .ofType(AuthActions.LOGIN)
+    .map(action => action)
     .switchMap((payload) => {
-      const { email, password } = payload;
+      const email = 'test';
+      const password = 'test';
+      // const { email, password } = payload;
 
       return this.featherService.authenticate({ strategy: 'local', email, password })
         .then(res => res)
@@ -57,7 +59,7 @@ export class AuthEffects {
 
   @Effect({ dispatch: false })
   navigateAfterLogin$: Observable<Action> = this.actions$
-    .ofType(AuthActions.LOGIN_USER_SUCCESS)
+    .ofType(AuthActions.LOGIN_SUCCESS)
     // .do is like a map except it always returns exactly what it was given
     .do(() => this._navigate(['/mail']))
     
@@ -66,8 +68,5 @@ export class AuthEffects {
     .ofType(AuthActions.CREATE_USER_SUCCESS)
     // .do is like a map except it always returns exactly what it was given
     .do(() => this._navigate(['/login']))
-
-
-
 
 }

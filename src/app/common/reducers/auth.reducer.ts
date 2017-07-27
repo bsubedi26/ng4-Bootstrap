@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { AuthActions } from "app/common/actions/auth.actions";
+import * as authActions from 'app/common/actions/auth.actions';
 
 export interface IAuthState {
   accessToken: string;
@@ -16,28 +16,22 @@ const initialState: IAuthState = {
   error: {}
 };
 
-export const reducer = (state = initialState, action: any): IAuthState => {
+export const reducer = (state = initialState, action: authActions.Actions): IAuthState => {
   switch (action.type) {
 
-    case 'CHANGE_AUTH_TEST': 
-      return {
-        ...state, 
-        test: 'test works'
-      }
-
-    case AuthActions.CLEAR_ERROR:
-      return { ...state, error: {} }
+    case authActions.CLEAR_ERROR:
+      return { ...state, error: {} };
     
-    case AuthActions.LOGIN_USER_SUCCESS:
-    case AuthActions.CREATE_USER_SUCCESS:
-      return { ...state, ...action.payload.response, error: {} }
+    case authActions.LOGIN_SUCCESS:
+    case authActions.CREATE_USER_SUCCESS:
+      return { ...state, ...action.payload.response, error: {} };
 
-    case AuthActions.LOGIN_USER_ERROR:
-    case AuthActions.CREATE_USER_ERROR:
+    case authActions.LOGIN_ERROR:
+    case authActions.CREATE_USER_ERROR:
       return { 
         ...state, 
         error: {...state.error, ...action.payload.response }
-      }
+      };
 
     default:
       return state;

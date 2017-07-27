@@ -1,9 +1,9 @@
 import { FeatherService } from 'app/common/services/feather.service';
 import { compose } from '@ngrx/core';
 
-import { combineReducers, ActionReducer, Action } from '@ngrx/store';
+import { combineReducers, ActionReducer, Action, ActionReducerMap } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
-import { storeLogger } from "ngrx-store-logger";
+import { storeLogger } from 'ngrx-store-logger';
 
 import { environment } from '../../../environments/environment';
 import * as fromAuth from './auth.reducer';
@@ -11,7 +11,7 @@ import * as fromAuth from './auth.reducer';
 const featherService = new FeatherService() 
 const services = featherService.getServices()
 
-services.todos.create({text: 'againdddd'})
+// services.todos.create({text: 'againdddd'})
 // .then(res => console.log('done', res))
 // .catch(res => console.log('err',res))
 
@@ -19,34 +19,20 @@ export interface State {
   auth: fromAuth.IAuthState;
 }
 
-const reducers = {
+export const reducers: ActionReducerMap<State> = {
   auth: fromAuth.reducer,
-
-  users: services.users.reducer,
-  emails: services.emails.reducer,
-  messages: services.messages.reducer,
-  rooms: services.rooms.reducer,
-  todos: services.todos.reducer,
+  // users: services.users.reducer,
+  // emails: services.emails.reducer,
+  // messages: services.messages.reducer,
+  // rooms: services.rooms.reducer,
+  // todos: services.todos.reducer,
 };
 
-
-
-
 // ------------------------------------------------------------------------------
-// if environment is != from production
-// use storeFreeze to avoid state mutation
-const developmentReducer = compose(
+// ------------------------------------------------------------------------------
+const developmentReducer = [
   storeLogger(),
-  storeFreeze,
-  combineReducers
-)(reducers);
+  storeFreeze
+];
 
-const productionReducer = compose(combineReducers)(reducers);
-
-export function reducer(state: any, action: any) {
-  if (environment.production) {
-    return productionReducer(state, action);
-  } else {
-    return developmentReducer(state, action);
-  }
-}
+export const metaReducers: ActionReducer<any, any>[] = !environment.production ? developmentReducer : [];
