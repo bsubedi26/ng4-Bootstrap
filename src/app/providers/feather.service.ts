@@ -9,21 +9,18 @@ import * as socketio from 'feathers-socketio/client';
 import * as authentication from 'feathers-authentication-client';
 
 // TS Lint will complain here. Unfortunately feathers-reactive needs the entire Rx object passed on creation.
-import * as Rx from 'rxjs';
-import reduxifyServices from 'feathers-redux';
-
+// import * as Rx from 'rxjs';
 
 /**
  * Simple wrapper for feathers
  */
 @Injectable()
 export class FeatherService {
-  // There are no proper typings available for feathers, due to its plugin-heavy nature
   private _feathers: any;
   private _socket: any;
-  public services: any;
-
-  constructor(private store?: Store<any>) {
+  
+  // constructor(private store: Store<any>) {
+  constructor() {
     this._socket = io('http://localhost:3030');       // init socket.io
 
     this._feathers = feathers();                      // init Feathers
@@ -34,18 +31,6 @@ export class FeatherService {
       storage: window.localStorage
     }));
 
-    this.services = reduxifyServices(this._feathers, ['users', 'emails', 'messages', 'rooms', 'todos']);
-    // console.log('redux service: ', this.services)
-    
-  }
-
-  public createTodo(input?) {
-    this.store.dispatch(this.services.users.find('ss'))
-  }
-
-  public getServices() {
-    return this.services;
-
   }
 
   // expose services
@@ -53,31 +38,20 @@ export class FeatherService {
     return this._feathers.service(name);
   }
 
-  // expose authentication
+  // expose authentication (login)
   authenticate(credentials?): Promise<Object> {
     return this._feathers.authenticate(credentials);
   }
 
-  public async decodeToken(response) {
-    return this._feathers.passport.verifyJWT(response.accessToken);
-  }
-
-  // expose logout
+  // expose logout (signout)
   public logout() {
     return this._feathers.logout();
   }
 
-
-  getUser() {
-    return this._feathers.get('user')
+  // expose decodeToken (returns user credentials associated with jwt)
+  public async decodeToken(response) {
+    return await this._feathers.passport.verifyJWT(response.accessToken);
   }
 
-  getToken(): Promise<any> {
-    return this._feathers.get('token')
-  }
-
-  isLogin() {
-    return this.getUser() ? true : false
-  }
 
 }

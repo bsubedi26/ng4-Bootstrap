@@ -1,9 +1,9 @@
-import { DataService } from './../../common/services/data.service';
-import { FeatherService } from './../../common/services/feather.service';
+import { DataService } from 'app/services/data.service';
+import { FeatherService } from 'app/providers/feather.service';
 import { Http } from '@angular/http';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'app-chat',
@@ -16,7 +16,7 @@ export class ChatComponent {
   messages$: Observable<any[]>;
   users$: Observable<any[]>;
   rooms: Array<string> = ['fitness', 'entertainment', 'sports', 'news', 'culture', 'general'];
-  activeRoom: string = 'general';
+  activeRoom = 'general';
   retrievedMessages$: Observable<any>;
 
   constructor(private dataService: DataService, private _feathers: FeatherService) { }

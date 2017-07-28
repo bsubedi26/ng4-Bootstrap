@@ -5,9 +5,11 @@ export interface IAuthState {
   accessToken: string;
   user: Object;
   error: Object;
+  isLoggedIn: boolean;
 }
 
 const initialState: IAuthState = {
+  isLoggedIn: false,
   accessToken: undefined,
   user: {
     email: 'INIT',
@@ -21,19 +23,36 @@ export const reducer = (state = initialState, action: authActions.Actions): IAut
 
     case authActions.CLEAR_ERROR:
       return { ...state, error: {} };
-    
+
     case authActions.LOGIN_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+        isLoggedIn: true
+      };
+
     case authActions.CREATE_USER_SUCCESS:
-      return { ...state, ...action.payload.response, error: {} };
+      return { ...state, ...action.payload };
 
     case authActions.LOGIN_ERROR:
     case authActions.CREATE_USER_ERROR:
-      return { 
-        ...state, 
-        error: {...state.error, ...action.payload.response }
+      return {
+        ...state,
+        ...action.payload 
+      };
+
+    case authActions.LOGOUT:
+      return {
+        ...state,
+        isLoggedIn: false,
+        accessToken: undefined,
+        user: {
+          email: 'INIT',
+          _id: 'INIT'
+        },
       };
 
     default:
       return state;
   }
-}
+};

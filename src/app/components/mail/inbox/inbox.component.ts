@@ -1,4 +1,4 @@
-import { MailService } from 'app/common/services/mail.service';
+import { MailService } from 'app/services/mail.service';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 
@@ -20,7 +20,7 @@ export class InboxComponent implements OnInit {
     this.store.select(state => state.auth)
       .map(each => console.log('eacc', each))
       .delay(10000)
-      .subscribe((state:any) => this.user = state.user.email)
+      .subscribe((state: any) => this.user = state.user.email)
       // .subscribe(auth => {
       //   console.log('aa', auth)
       // })

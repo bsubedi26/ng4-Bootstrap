@@ -6,6 +6,7 @@ import { StarredComponent } from './starred/starred.component';
 import { SentComponent } from './sent/sent.component';
 import { SpamComponent } from './spam/spam.component';
 import { TrashComponent } from './trash/trash.component';
+import { AuthGuard } from 'app/app.guard';
 
 export const routerConfig: Routes = [
   {
@@ -13,7 +14,8 @@ export const routerConfig: Routes = [
     children: [
       {
         path: '',
-        component: MailComponent
+        component: MailComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'inbox',

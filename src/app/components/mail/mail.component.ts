@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from "@ngrx/store";
-import { MailService } from "app/common/services/mail.service";
+import { Store } from '@ngrx/store';
+import { MailService } from 'app/services/mail.service';
 
 @Component({
   selector: 'app-mail',
@@ -28,24 +28,19 @@ export class MailComponent implements OnInit {
   constructor(
     private store: Store<any>,
     private router: Router,
-    private mailService: MailService
+    private mailService: MailService,
   ) {
     this.store.select(state => state.auth)
     .subscribe(auth => this.authState = auth)
-    console.log(this.mailService)
   }
 
   handleRouteClick(routeClicked) {
     this.activeRoute = routeClicked;
-    const goToRoute = "mail/"+routeClicked.path
+    const goToRoute = `mail/${routeClicked.path}`
     this.router.navigate([goToRoute]);
   }
 
   handleSendEmail(emailBody) {
-    console.log(this.emailFrom)
-    console.log(this.emailTo)
-    console.log(this.emailSubject)
-    console.log(emailBody)
     const parameters = {
       fromEmail: this.emailFrom,
       toEmail: this.emailTo,

@@ -1,16 +1,16 @@
 import { TodoService } from './todo.service';
 import { DataService } from './data.service';
-import { FeatherService } from './feather.service';
 import { MailService } from './mail.service';
-import { AuthService } from './auth.service';
+import { AuthService } from './authentication.service';
+import { UserService } from './user.service';
 
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from 'app/app.guard';
 
 export const AllServices = [
-  FeatherService,
   DataService,
   AuthGuard,
   TodoService,
   MailService,
-  AuthService
+  AuthService,
+  UserService
 ];

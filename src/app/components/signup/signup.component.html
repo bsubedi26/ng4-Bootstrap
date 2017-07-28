@@ -22,6 +22,8 @@
           <span *ngIf="signupForm.controls['password'].hasError('required')" class="alert-error">This field is required!</span>
           <span *ngIf="signupForm.controls['password'].hasError('minlength')" class="alert-error">Please enter a value longer than 6 characters!</span>
         </div>
+
+        <span>Already have an Account? <a class="text-primary" routerLink="/login">Login here!</a></span>
         <button [disabled]="!signupForm.valid" type="submit" id="login" class="button button-primary block signup">Submit</button>
       </form>
         

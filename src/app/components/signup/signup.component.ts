@@ -1,8 +1,8 @@
-import { FeatherService } from 'app/common/services/feather.service';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import * as authActions from '../../common/actions/auth.actions';
+import * as authActions from 'app/common/actions/auth.actions';
+import { UserService } from 'app/services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,8 +14,8 @@ export class SignupComponent implements OnInit {
   messages: Array<any> = [];
 
   constructor(
-    private _feathers: FeatherService, 
     private store: Store<any>, 
+    private userService: UserService,
     private formBuilder: FormBuilder
   ) {}
 
@@ -33,9 +33,9 @@ export class SignupComponent implements OnInit {
   submitForm(formValues) {
     const { email, password } = formValues;
     // this.store.dispatch(this.authActions.createUser(email, password))
-    const userService = this._feathers.service('users')
+    // const userService = this._feathers.service('users')
 
-    userService.create({email, password})
+    this.userService.create({email, password})
       .then(response => {
         this.setMessage('Successfully Created User!');
         // this.store.dispatch(this.authActions.createUserSuccess(response));

@@ -250,6 +250,10 @@ form input {
   padding: 20px;
 }
 
+.padding-top-20 {
+  padding-top: 20px;
+}
+
 .margin-20 {
   margin: 20px;
 }

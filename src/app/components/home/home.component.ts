@@ -1,8 +1,7 @@
-import { FeatherService } from 'app/common/services/feather.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from "rxjs/Subscription";
-import { TodoService } from "app/common/services/todo.service";
-import { Store } from "@ngrx/store";
+import { Subscription } from 'rxjs/Subscription';
+import { TodoService } from 'app/services/todo.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +17,6 @@ export class HomeComponent implements OnDestroy, OnInit {
   constructor(
     private todoService: TodoService,
     private store: Store<any>,
-    private featherService: FeatherService
   ) {
     this.store.select(state => state.auth)
     .subscribe(response => this.auth = response)
@@ -38,8 +36,7 @@ export class HomeComponent implements OnDestroy, OnInit {
   }
 
   public createTodo() {
-    this.featherService.createTodo()
-
+    // this.store.dispatch(actions.users.find({ query: { email: 'sss'}}))
   }
 
   private handleSubmit(todo) {

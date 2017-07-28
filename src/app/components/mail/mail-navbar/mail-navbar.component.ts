@@ -1,4 +1,4 @@
-import { MailService } from 'app/common/services/mail.service';
+import { MailService } from 'app/services/mail.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';

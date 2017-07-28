@@ -13,11 +13,11 @@ import { AppComponent } from './app.component';
 import { NavbarModule } from './components/navbar/navbar.module';
 
 import { reducers, metaReducers } from './common/reducers';
-import { AllActions } from './common/actions';
 import { AllEffects } from './common/effects';
-import { AllServices } from './common/services';
+import { AllServices } from './services';
 
 import { routerConfig } from './app-routing.module';
+import { AllProviders } from 'app/providers';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,7 @@ import { routerConfig } from './app-routing.module';
   ],
   providers: [
     AllServices,
-    AllActions
+    AllProviders
   ],
   bootstrap: [
     AppComponent

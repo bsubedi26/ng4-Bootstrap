@@ -3,20 +3,31 @@
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="#">ng4-Bootstrap</a>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-
-      <li *ngFor="let navigation of navigations" class="nav-item active">
+    <!--LOGGED IN NAV LINKS-->
+    <ul class="navbar-nav mr-auto" *ngIf="isLoggedIn">
+      <li *ngFor="let navigation of loggedInNavigations" class="nav-item active">
         <a class="nav-link" routerLink={{navigation.path}}>{{navigation.name}}</a>
       </li>
-
+      <li class="cursor-pointer">
+        <a (click)="handleLogout()" class="nav-link text-danger">Logout</a>
+      </li>
     </ul>
 
-<!--
+    <!--LOGGED OUT NAV LINKS-->
+    <ul class="navbar-nav mr-auto" *ngIf="!isLoggedIn">
+      <li *ngFor="let navigation of visitorNavigations" class="nav-item active">
+        <a class="nav-link" routerLink={{navigation.path}}>{{navigation.name}}</a>
+      </li>
+    </ul>
+
+
+
+    <!--
     <form (submit)="handleSearchSubmit()" class="form-inline my-2 my-lg-0">
-      <input id="searchYoutube" class="form-control mr-sm-2" #inputValue type="text" placeholder="Search Youtube">
+      <input id="searchYoutube" class="form-control mr-sm-2" #inputValue type="text" placeholder="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>-->
 

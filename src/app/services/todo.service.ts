@@ -1,4 +1,4 @@
-import { FeatherService } from './feather.service';
+import { FeatherService } from '../providers/feather.service';
 import { Injectable } from '@angular/core';  
 import { Observable } from 'rxjs/Observable';  
 import { Observer } from 'rxjs/Observer';  
@@ -36,7 +36,7 @@ export class TodoService {
 
   public find() {
     this.todoService.find((err, todos: any[]) => {
-      if (err) return console.error(err);
+      if (err) { throw err };
 
       this.dataStore.todos = todos;
       this.todosObserver.next(this.dataStore.todos);

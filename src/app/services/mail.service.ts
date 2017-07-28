@@ -1,4 +1,4 @@
-import { FeatherService } from './feather.service';
+import { FeatherService } from '../providers/feather.service';
 import { Injectable } from '@angular/core';
 
 

@@ -1,5 +1,5 @@
+import { FeatherService } from '../providers/feather.service';
 import { Injectable } from '@angular/core';
-import { FeatherService } from './feather.service';
 
 /**
  *  Abstraction layer for data management

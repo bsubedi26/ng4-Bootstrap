@@ -1,7 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from "rxjs/Subscription";
-import { TodoService } from "app/common/services/todo.service";
-import { Store } from "@ngrx/store";
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-shared-card',

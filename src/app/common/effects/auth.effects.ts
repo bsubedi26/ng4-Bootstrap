@@ -5,8 +5,7 @@ import { Action, Store } from '@ngrx/store';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import * as AuthActions from '../actions/auth.actions';
-import { FeatherService } from 'app/common/services/feather.service';
+import * as authActions from '../actions/auth.actions';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
@@ -15,15 +14,46 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/delay';
+import { AuthService } from 'app/services/authentication.service';
 
 
 function simulateHttp(val: any, delay: number) {
-  return Observable.of(val).delay(delay) 
+  return Observable.of(val).delay(delay)
 }
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private featherService: FeatherService, public router: Router, private store: Store<any>) { }
+
+
+  @Effect({ dispatch: false })
+  navigateAfterLogin$: Observable<Action> = this.actions$
+    .ofType(authActions.LOGIN_SUCCESS)
+    // .do is like a map except it always returns exactly what it was given
+    .do((action: any) => {
+      this._navigate(['/mail'])
+    })
+
+  @Effect({ dispatch: false })
+  navigateAfterUserCreate$: Observable<Action> = this.actions$
+    .ofType(authActions.CREATE_USER_SUCCESS)
+    .do(() => this._navigate(['/login']))
+
+
+  @Effect({ dispatch: false })
+  userLogout$: Observable<Action> = this.actions$
+    .ofType(authActions.LOGOUT)
+    .do(() => {
+      this.authService.logout();
+      this._navigate(['/login']);
+    })
+
+
+  constructor(
+    private actions$: Actions, 
+    public router: Router, 
+    private authService: AuthService,
+    private store: Store<any>
+  ) { }
 
   private _navigate(path) {
     return this.router.navigate(path);
@@ -32,41 +62,4 @@ export class AuthEffects {
     this.store.dispatch(action)
   }
 
-  // @Effect({ dispatch: false })
-  @Effect()
-  loginUser$: Observable<Action> = this.actions$
-    .ofType(AuthActions.LOGIN)
-    .map(action => action)
-    .switchMap((payload) => {
-      const email = 'test';
-      const password = 'test';
-      // const { email, password } = payload;
-
-      return this.featherService.authenticate({ strategy: 'local', email, password })
-        .then(res => res)
-        .catch(res => res)
-     
-      // try {
-      //   const loginResponse = await this.featherService.authenticate({ strategy: 'local', email, password })
-      //   this._dispatch(this._authActions.loginUserSuccess(loginResponse))
-      //   return;
-      // } catch (error) {
-      //   this._dispatch(this._authActions.loginUserError(error))
-      //   return;
-      // }
-    })
-
-
-  @Effect({ dispatch: false })
-  navigateAfterLogin$: Observable<Action> = this.actions$
-    .ofType(AuthActions.LOGIN_SUCCESS)
-    // .do is like a map except it always returns exactly what it was given
-    .do(() => this._navigate(['/mail']))
-    
-  @Effect({ dispatch: false })
-  navigateAfterUserCreate$: Observable<Action> = this.actions$
-    .ofType(AuthActions.CREATE_USER_SUCCESS)
-    // .do is like a map except it always returns exactly what it was given
-    .do(() => this._navigate(['/login']))
-
-}
+};
