@@ -15,7 +15,7 @@ const middleware = require('./middleware');
 const services = require('./services');
 const appHooks = require('./app.hooks');
 
-const authentication = require('./authentication');
+// const authentication = require('./services/authentication');
 
 const mongoose = require('./mongoose');
 
@@ -39,7 +39,7 @@ app.configure(mongoose);
 app.configure(rest());
 app.configure(socketio());
 
-app.configure(authentication);
+// app.configure(authentication);
 
 // Set up our services (see `services/index.js`)
 app.configure(services);

@@ -19,8 +19,8 @@ export class AuthService {
   }
 
   // expose decodeToken (returns user credentials associated with jwt)
-  public async decodeToken(response) {
-    return await this.featherService.decodeToken(response);
+  public decodeToken(token) {
+    return this.featherService.decodeToken(token);
   }
 
 };

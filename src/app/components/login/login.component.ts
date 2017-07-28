@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private store: Store<any>,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -42,14 +42,7 @@ export class LoginComponent implements OnInit {
 
     try {
       const authResponse: any = await this.authService.authenticate({ strategy: 'local', email, password })
-
-      if (authResponse.accessToken) {
-        // this.messages.unshift(response.message);
-        console.log(authResponse)
-        const userInfo = await this.authService.decodeToken(authResponse.accessToken)
-        console.log('userinfo ', userInfo)
-
-      }
+      this.store.dispatch(new authActions.LoginSuccess(authResponse))
     } catch (response) {
       console.log('.catch login ', response)
       this.messages.unshift(response.message)
@@ -57,25 +50,6 @@ export class LoginComponent implements OnInit {
 
     } 
   
-
-    // this.authService.authenticate({ strategy: 'local', email, password })
-    // .then((response: any) => {
-    //   const { accessToken } = response;
-    //   this.messages.unshift(response.message);
-
-    //   this.authService.decodeToken(accessToken)
-    //   .then((user: any) => {
-    //     console.log('USS', user)
-    //     this.store.dispatch(new authActions.LoginSuccess(response))
-    //   })
-
-    // })
-    // .catch((response: any) => {
-    //   console.log('.catch login ', response)
-    //   this.messages.unshift(response.message)
-    //   // this.store.dispatch(new authActions.LoginError(response))
-    // })
-
   }
 
 }

@@ -19,10 +19,8 @@ export class FeatherService {
   private _feathers: any;
   private _socket: any;
   
-  // constructor(private store: Store<any>) {
   constructor() {
     this._socket = io('http://localhost:3030');       // init socket.io
-
     this._feathers = feathers();                      // init Feathers
     this._feathers.configure(hooks());                // add hooks plugin
     // this._feathers.configure(feathersRx(Rx));         // add feathers-reactive plugin
@@ -49,9 +47,8 @@ export class FeatherService {
   }
 
   // expose decodeToken (returns user credentials associated with jwt)
-  public async decodeToken(response) {
-    return await this._feathers.passport.verifyJWT(response.accessToken);
+  public decodeToken(token) {
+    return this._feathers.passport.verifyJWT(token);
   }
-
 
 }

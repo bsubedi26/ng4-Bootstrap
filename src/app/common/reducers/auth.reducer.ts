@@ -2,32 +2,36 @@ import { Action } from '@ngrx/store';
 import * as authActions from 'app/common/actions/auth.actions';
 
 export interface IAuthState {
-  accessToken: string;
-  user: Object;
-  error: Object;
   isLoggedIn: boolean;
+  user: Object;
+  accessToken: string;
+  error: Object;
 }
 
 const initialState: IAuthState = {
   isLoggedIn: false,
-  accessToken: undefined,
+  error: {},
   user: {
     email: 'INIT',
     _id: 'INIT'
   },
-  error: {}
+  accessToken: undefined,
+  
 };
 
-export const reducer = (state = initialState, action: authActions.Actions): IAuthState => {
+
+
+// export const reducer = (state = initialState, action: authActions.Actions): IAuthState => {
+// export function reducer(state = initialState, action: authActions.Actions): IAuthState {
+export function reducer(state = initialState, action) {
   switch (action.type) {
 
-    case authActions.CLEAR_ERROR:
-      return { ...state, error: {} };
-
     case authActions.LOGIN_SUCCESS:
+    const { accessToken, user } = action.payload;
       return {
         ...state,
-        ...action.payload,
+        accessToken,
+        user,
         isLoggedIn: true
       };
 
@@ -51,6 +55,9 @@ export const reducer = (state = initialState, action: authActions.Actions): IAut
           _id: 'INIT'
         },
       };
+
+    case authActions.CLEAR_ERROR:
+      return { ...state, error: {} };
 
     default:
       return state;

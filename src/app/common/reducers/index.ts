@@ -7,20 +7,23 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 
 import { environment } from '../../../environments/environment';
 import * as fromAuth from './auth.reducer';
+// import { IAuthState as authState, reducer as authReducer } from './auth.reducer';
 
 export interface State {
+  // auth: authState;
   auth: fromAuth.IAuthState;
 }
 
 export const reducers: ActionReducerMap<State> = {
+  // auth: authReducer,
   auth: fromAuth.reducer,
 };
 
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
 const developmentReducer = [
-  storeLogger(),
   // storeFreeze,
+  storeLogger(),
   localStorageSync({
     keys: ['auth'],
     rehydrate: true
