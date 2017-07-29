@@ -1,9 +1,13 @@
 import { DataService } from 'app/services/data.service';
 import { FeatherService } from 'app/providers/feather.service';
 import { Http } from '@angular/http';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { MessageService } from 'app/services/message.service';
+import { RoomService } from 'app/services/room.service';
+import { UserService } from 'app/services/user.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-chat',
@@ -11,92 +15,63 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
   styleUrls: ['./chat.component.css'],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChatComponent {
-  
-  messages$: Observable<any[]>;
-  users$: Observable<any[]>;
+export class ChatComponent implements OnInit {
+
+  messageForm: FormGroup;
+  messages: Array<any> = [];
+  users: Array<any>;
+  currentUser: any;
   rooms: Array<string> = ['fitness', 'entertainment', 'sports', 'news', 'culture', 'general'];
   activeRoom = 'general';
-  retrievedMessages$: Observable<any>;
+  activeRoomId: string;
 
-  constructor(private dataService: DataService, private _feathers: FeatherService) { }
+  constructor(
+    private dataService: DataService,
+    private _feathers: FeatherService,
+    private messageService: MessageService,
+    private roomService: RoomService,
+    private userService: UserService,
+    private formBuilder: FormBuilder
+  ) {
+    this.messageForm = this.formBuilder.group({
+      message: [null, Validators.required]
+    });
+  }
 
-  async handleRoomBtnClick(chatRoom: string) {
-    const roomService = this._feathers.service('rooms');
-    const messageService = this._feathers.service('messages');
-    
-    this.setActiveRoom(chatRoom);
-
-    const roomDoc = await roomService.find({ query: { room: this.activeRoom } });
-    const roomId = roomDoc[0]._id;
-    console.log('ROOM ', roomId);
-
-    this.retrievedMessages$ = messageService.find({ query: { roomId: roomId } })
-      .then(response => response)
-      .catch(response => console.log(response))
-
+  initEventListeners(): void {
+    this.messageService.on('created', (message) => {
+      console.log('onCreated! message ', message)
+      console.log(message.roomId === this.activeRoomId)
+      if (message.roomId === this.activeRoomId) {
+        this.messages.push(message)
+      }
+    })
   }
 
   async ngOnInit() {
-    const messageService = this._feathers.service('messages');
-    const userService = this._feathers.service('users');
-    const roomService = this._feathers.service('rooms');
-    const roomDoc = await roomService.find({ query: { room: this.activeRoom }});
-    const roomId = roomDoc[0]._id;
-
-    this.retrievedMessages$ = messageService.find({ query: { roomId: roomId }})
-      .then(response => response)
-      .catch(response => console.log(response))
-
-    this.users$ = userService.find()
-      .then(response => response)
-      .catch(response => console.log(response))
-
-    messageService.on('created', (data) => {
-      console.log('message created! ', data);
-    })
-    // this.retrievedMessages$.subscribe(res => console.log('DATA ', res))
-    // get messages from data service
-    // this.messages$ = this.dataService.messages$()
-    //   // our data is paginated, so map to .data
-    //   .map(m => m.data)
-    //   // reverse the messages array, to have the most recent message at the end
-    //   // necessary because we get a descendingly sorted array from the data service
-    //   .map(m => m.reverse());
-
+    this.initEventListeners();
+    // authenticate before query (HACK FIX for browser refreshes)
+    const authResponse: any = await this._feathers.authenticate()
+    this.currentUser = authResponse.user
+    this.users = await this.userService.find()
   }
 
-  setActiveRoom(chatRoom: string) {
+  async handleSendMessage(formValues) {
+    const { message } = formValues;
+    // find the room id associated with the incoming form message
+    const roomDoc = await this.roomService.find({ query: { room: this.activeRoom } });
+    this.activeRoomId = roomDoc[0]._id;
+
+    await this.messageService.create({ text: message, roomId: this.activeRoomId })
+  }
+
+  async handleRoomBtnClick(chatRoom: string) {
     this.activeRoom = chatRoom;
-  }
 
-  async sendMessage(message: string) {
-    const messageService = this._feathers.service('messages');
-    const roomService = this._feathers.service('rooms');
-
-    const roomDoc = await roomService.find({ query: { room: this.activeRoom } });
-    const roomId = roomDoc[0]._id;
-
-    messageService.create({ text: message, roomId: roomId })
-      .then(response => {
-        
-        console.log('subs response ', response)
-        const newObservable = Observable.of(response)
-        
-        console.log('PRE ', newObservable)
-
-        // this.retrievedMessages$ = new Observable(observer => {
-        //   observer.next(response);
-        //   console.log('POST  ', this.retrievedMessages$)
-          
-        // })
-      })
-      // .then(response => console.log('.then created message'))
-      // .catch(response => console.log(response))
-    
-    // this.dataService.sendMessage(message, this.activeRoom)
-    //   .then(response => console.log(response))
-    //   .catch(response => console.log(response))
+    const roomDoc = await this.roomService.find({ query: { room: this.activeRoom } });
+    this.activeRoomId = roomDoc[0]._id;
+    console.log('ROOM ', this.activeRoomId);
+    this.messages = await this.messageService.find({ query: { roomId: this.activeRoomId } })
   }
 
   logOut() {

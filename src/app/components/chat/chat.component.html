@@ -1,14 +1,16 @@
 <main class="flex flex-column">
   <header class="title-bar flex flex-row flex-center">
     <div class="title-wrapper block center-element">
-      <img class="logo" src="http://feathersjs.com/img/feathers-logo-wide.png"
+      <!--<img class="logo" src="http://feathersjs.com/img/feathers-logo-wide.png"
            alt="Feathers Logo">
       <span class="title">Chat</span>
+            -->
+      <button *ngFor="let room of rooms" class="margin-20 btn btn-primary" (click)="handleRoomBtnClick(room)">{{room}}</button>
     </div>
   </header>
 
   <div class="flex flex-row flex-1 clear">
-    <aside class="sidebar col col-3 flex flex-column flex-space-between" *ngIf="users$ | async; let users">
+    <aside class="sidebar col col-3 flex flex-column flex-space-between" *ngIf="users">
       <header class="flex flex-row flex-center">
         <h4 class="font-300 text-center">
           <span class="font-600 online-count">{{users.length}}</span> users
@@ -24,7 +26,7 @@
         </li>
       </ul>
       <footer class="flex flex-row flex-center">
-        <a href="#" id="logout" class="button button-primary" (click)="logOut()">
+        <a href="#" id="logout" class="btn btn-primary" (click)="logOut()">
           Sign Out
         </a>
       </footer>
@@ -32,19 +34,12 @@
 
     <div class="flex flex-column col col-9">
       <main class="chat flex flex-column flex-1 clear" #chat [scrollTop]="chat.scrollHeight - chat.clientHeight">
-      
-      <!--TODO: Replace with sub component-->
-      <!--<chat-room></chat-room> -->
-        <div class="row">
-          <button *ngFor="let room of rooms" class="margin-20 btn btn-primary" (click)="handleRoomBtnClick(room)">{{room}}</button>
-        </div>
-
         <!--<div class="message flex flex-row" *ngFor="let message of messages$ | async">-->
-        <div class="message flex flex-row" *ngFor="let message of retrievedMessages$ | async">
+        <div class="message flex flex-row" *ngFor="let message of messages">
           <!--<img [src]="message.user.avatar" [alt]="message.user" class="avatar">-->
           <div class="message-wrapper">
             <p class="message-header">
-              <span class="username font-600">{{message._id}}</span>
+              <span class="username font-600">{{message.userEmail}}</span>
               <span class="sent-date font-300">{{message.createdAt | date:'MMM dd, hh:mm:ss'}}</span>
             </p>
             <p class="message-content font-300">{{message.text}}</p>
@@ -52,9 +47,11 @@
         </div>
       </main>
 
-      <form class="flex flex-row flex-space-between" id="send-message">
-        <input #message type="text" name="text" class="flex flex-1">
-        <button class="btn btn-primary" (click)="sendMessage(message.value); message.value = ''">Send</button>
+
+      <form class="flex flex-row flex-space-between" id="send-message" 
+        [formGroup]="messageForm" (ngSubmit)="handleSendMessage(messageForm.value);message.value=''">
+          <input #message formControlName="message" type="text" name="text" class="flex flex-1">
+          <button [disabled]="!messageForm.valid" class="btn btn-primary">Send</button>
       </form>
     </div>
   </div>

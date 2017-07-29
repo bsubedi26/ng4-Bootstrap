@@ -17,7 +17,6 @@ export class TodoService {
     todos: []
   };
 
-
   constructor(private featherService: FeatherService) {
 
     this.todoService = featherService.service('todos');

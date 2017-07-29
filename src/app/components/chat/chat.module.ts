@@ -5,9 +5,15 @@ import { SharedModule } from '../shared/shared.module';
 
 import { ChatComponent } from './chat.component';
 import { routerConfig } from './chat.router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routerConfig), SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routerConfig),
+    SharedModule,
+    ReactiveFormsModule
+  ],
   declarations: [ChatComponent],
   providers: [],
 })

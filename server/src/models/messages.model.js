@@ -3,6 +3,7 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const messages = new Schema({
     text: { type: String, required: true },
+    userEmail: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 

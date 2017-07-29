@@ -24,6 +24,11 @@ export class SignupComponent implements OnInit {
       email: [null, Validators.compose([Validators.required, Validators.minLength(6)]) ],
       password: [null, Validators.compose([Validators.required, Validators.minLength(6)]) ],
     });
+
+
+    this.userService.on('created', (user) => {
+      console.log('Listener::onCreated ', user)
+    })
   }
 
   setMessage(message) {

@@ -22,6 +22,7 @@ module.exports = function() {
       roomId: hook.data.roomId,
       // Set the user id
       userId: user._id,
+      userEmail: user.email,
       // Add the current time via `getTime`
       createdAt: new Date().getTime()
     };

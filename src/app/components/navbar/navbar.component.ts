@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   loggedInNavigations: Array<any> = [
     { path: 'home', name: 'Home' },
     { path: 'mail', name: 'Mail' },
-    // { path: 'chat', name: 'Chat' },
+    { path: 'chat', name: 'Chat' },
   ]
 
   visitorNavigations: Array<any> = [
@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
     { path: 'login', name: 'Login' },
     { path: 'signup', name: 'Signup' },
     { path: 'mail', name: 'Mail' },
-    // { path: 'chat', name: 'Chat' },
+    { path: 'chat', name: 'Chat' },
   ]
 
   constructor(private store: Store<any>, private authService: AuthService) {
