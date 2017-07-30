@@ -7,19 +7,20 @@ import * as io from 'socket.io-client';
 import * as hooks from 'feathers-hooks';
 import * as socketio from 'feathers-socketio/client';
 import * as authentication from 'feathers-authentication-client';
-
-// TS Lint will complain here. Unfortunately feathers-reactive needs the entire Rx object passed on creation.
-// import * as Rx from 'rxjs';
+import * as rest from 'feathers-rest/client';
+import { Http, Headers, RequestOptions } from '@angular/http';
 
 /**
- * Simple wrapper for feathers
+ * Simple wrapper for feathers client
  */
 @Injectable()
 export class FeatherService {
   private _feathers: any;
+  private _restClient: any;
   private _socket: any;
-  
-  constructor() {
+  private httpOptions: Headers;
+
+  constructor(angularHttp: Http) {
     this._socket = io('http://localhost:3030');       // init socket.io
     this._feathers = feathers();                      // init Feathers
     this._feathers.configure(hooks());                // add hooks plugin
@@ -28,6 +29,12 @@ export class FeatherService {
     this._feathers.configure(authentication({         // add authentication plugin
       storage: window.localStorage
     }));
+
+    // this._restClient = rest('http://localhost:3030')
+    // this.httpOptions = new Headers()
+    // this.httpOptions.append('Content-Type', 'application/json');
+    // const options = new RequestOptions({ headers: this.httpOptions });
+    // this._feathers.configure(this._restClient.angular(angularHttp, options))
 
   }
 

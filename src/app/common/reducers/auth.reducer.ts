@@ -45,15 +45,7 @@ export function reducer(state = initialState, action: authActions.Actions): IAut
       };
 
     case authActions.LOGOUT:
-      return {
-        ...state,
-        isLoggedIn: false,
-        accessToken: undefined,
-        user: {
-          email: 'INIT',
-          _id: 'INIT'
-        },
-      };
+      return Object.assign({}, initialState);
 
     case authActions.CLEAR_ERROR:
       return { ...state, error: {} };

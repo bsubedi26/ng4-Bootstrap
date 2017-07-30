@@ -1,6 +1,6 @@
 {
-  "name": "feathers-chat",
-  "description": "A Feathers real-time chat application",
+  "name": "feathers-node-server",
+  "description": "feathers server",
   "version": "0.0.0",
   "homepage": "",
   "main": "src",
@@ -8,8 +8,8 @@
     "feathers"
   ],
   "author": {
-    "name": "David Luecke",
-    "email": "daff@neyeon.com"
+    "name": "Bibek Subedi",
+    "email": "bsubedi26@gmail.com"
   },
   "contributors": [],
   "bugs": {},

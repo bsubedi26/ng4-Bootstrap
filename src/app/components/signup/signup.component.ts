@@ -48,6 +48,7 @@ export class SignupComponent implements OnInit {
       })
       .catch(error => {
         // this.setMessage(error.message)
+        console.error(error)
         this.setMessage('Could not create user!')
       })
 

@@ -1,9 +1,9 @@
 {
-  "name": "feathers-chat-angular",
-  "description": "An angular client for feathers-chat",
+  "name": "ng4-bootstrap",
+  "description": "An angular client template",
   "version": "0.0.0",
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/bsubedi26/ng4-Bootstrap",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -34,6 +34,7 @@
     "feathers-authentication-client": "^0.3.3",
     "feathers-client": "^2.3.0",
     "feathers-reactive": "^0.4.1",
+    "feathers-rest": "^1.8.0",
     "getbase": "^3.4.2",
     "ngrx-store-freeze": "^0.1.9",
     "ngrx-store-localstorage": "^0.2.0",
@@ -66,8 +67,8 @@
     "feathers"
   ],
   "author": {
-    "name": "Jan Lohage",
-    "email": "hi+feathers-chat-angular@j2L4e.de"
+    "name": "Bibek Subedi",
+    "email": "bsubedi26@gmail.com"
   },
   "contributors": [],
   "bugs": {}
