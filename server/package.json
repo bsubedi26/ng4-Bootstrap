@@ -1,6 +1,6 @@
 {
-  "name": "feathers-node-server",
-  "description": "feathers server",
+  "name": "feathers-server",
+  "description": "Application",
   "version": "0.0.0",
   "homepage": "",
   "main": "src",
@@ -8,8 +8,8 @@
     "feathers"
   ],
   "author": {
-    "name": "Bibek Subedi",
-    "email": "bsubedi26@gmail.com"
+    "name": "",
+    "email": ""
   },
   "contributors": [],
   "bugs": {},

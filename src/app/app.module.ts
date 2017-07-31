@@ -1,51 +1,46 @@
-import { SharedModule } from './components/shared/shared.module';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
-import { AppComponent } from './app.component';
-import { NavbarModule } from './components/navbar/navbar.module';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { reducers, metaReducers } from './common/reducers';
-import { AllEffects } from './common/effects';
-import { AllServices } from './services';
+import { MyApp } from './app.component';
+import { AboutPage } from '../pages/about/about';
+import { ContactPage } from '../pages/contact/contact';
+import { HomePage } from '../pages/home/home';
+import { TabsPage } from '../pages/tabs/tabs';
 
-import { routerConfig } from './app-routing.module';
-import { AllProviders } from 'app/providers';
+import { AppProviders } from "../providers/index";
+import { HttpModule } from "@angular/http";
 
 @NgModule({
   declarations: [
-    AppComponent,
+    MyApp,
+    AboutPage,
+    ContactPage,
+    HomePage,
+    TabsPage
   ],
   imports: [
-    ReactiveFormsModule,
-    BrowserModule,
-    FormsModule,
     HttpModule,
-    RouterModule.forRoot(routerConfig),
 
-    NgbModule.forRoot(),
-    StoreModule.forRoot(reducers, { metaReducers }),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25 //  Retains last 25 states
-    }),
-    AllEffects,
-    SharedModule,
-    NavbarModule
-
+    BrowserModule,
+    IonicModule.forRoot(MyApp)
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+    AboutPage,
+    ContactPage,
+    HomePage,
+    TabsPage
   ],
   providers: [
-    AllServices,
-    AllProviders
-  ],
-  bootstrap: [
-    AppComponent
+    StatusBar,
+    SplashScreen,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AppProviders
   ]
 })
-export class AppModule { }
+export class AppModule {}
