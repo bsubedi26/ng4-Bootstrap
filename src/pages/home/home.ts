@@ -1,7 +1,7 @@
 import { FeatherService } from './../../providers/feather.service';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import * as axios from 'axios';
+// import * as axios from 'axios';
 import { Http } from '@angular/http';
 
 import 'rxjs/add/operator/map';
@@ -26,15 +26,18 @@ export class HomePage {
   }
 
   handleSubmit() {
-    console.log(this.searchInput)
-    const searchUrl = `http://localhost:3030/fetch/${this.searchInput}`
-    this.http.get(searchUrl)
-    .map(res => res.json())
-    .subscribe((response) => {
-      console.log(response) // 200
-    })
 
-    this.searchInput = "";
+    this.navCtrl.setRoot('LoginPage')
+
+    // console.log(this.searchInput)
+    // const searchUrl = `http://localhost:3030/fetch/${this.searchInput}`
+    // this.http.get(searchUrl)
+    // .map(res => res.json())
+    // .subscribe((response) => {
+    //   console.log(response) // 200
+    // })
+
+    // this.searchInput = "";
     
     // this.http.get(`http://www.hoovers.com/company-information/company-search.html?term=${this.searchInput}`)
     // this.http.get(`/fetch/${this.searchInput}`)

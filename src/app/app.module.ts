@@ -10,6 +10,7 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { LoginPage } from '../pages/login/login';
 
 import { AppProviders } from "../providers/index";
 import { HttpModule } from "@angular/http";
@@ -20,13 +21,15 @@ import { HttpModule } from "@angular/http";
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    LoginPage
   ],
   imports: [
     HttpModule,
-
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+
+    IonicModule.forRoot(MyApp),
+    // LoginPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -34,7 +37,9 @@ import { HttpModule } from "@angular/http";
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    LoginPage
+    
   ],
   providers: [
     StatusBar,
