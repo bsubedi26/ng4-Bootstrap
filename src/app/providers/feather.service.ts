@@ -21,14 +21,14 @@ export class FeatherService {
   private httpOptions: Headers;
 
   constructor(angularHttp: Http) {
-    this._socket = io('http://localhost:3030');       // init socket.io
+    // this._socket = io('http://localhost:3030');       // init socket.io
     this._feathers = feathers();                      // init Feathers
     this._feathers.configure(hooks());                // add hooks plugin
     // this._feathers.configure(feathersRx(Rx));         // add feathers-reactive plugin
-    this._feathers.configure(socketio(this._socket)); // add socket.io plugin
-    this._feathers.configure(authentication({         // add authentication plugin
-      storage: window.localStorage
-    }));
+    // this._feathers.configure(socketio(this._socket)); // add socket.io plugin
+    // this._feathers.configure(authentication({         // add authentication plugin
+    //   storage: window.localStorage
+    // }));
 
     // this._restClient = rest('http://localhost:3030')
     // this.httpOptions = new Headers()
@@ -38,11 +38,28 @@ export class FeatherService {
 
   }
 
-  // expose services
+  // expose service
+  // public getService(name, method) {
+  //   const returnedService = this._feathers.service(name);
+
+  //   switch(method) {
+  //     case 'getAll': {
+  //       return returnedService.find()
+  //     }
+  //     case 'create': {
+        // return returnedService.create(input)
+  //     }
+  //   }
+  // }
   public service(name: string) {
     return this._feathers.service(name);
   }
 
+  public on(event: string, cb: Function) {
+    this._feathers.on(event, cb)
+  }
+
+  ///////////////////////AUTH///////////////////////////
   // expose authentication (login)
   authenticate(credentials?): Promise<Object> {
     return this._feathers.authenticate(credentials);
@@ -57,5 +74,7 @@ export class FeatherService {
   public decodeToken(token) {
     return this._feathers.passport.verifyJWT(token);
   }
+
+
 
 }

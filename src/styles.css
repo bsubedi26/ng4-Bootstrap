@@ -38,7 +38,7 @@ a:focus {
 
 .button-primary {
   padding: 0.6em 1.2em;
-  background: darkgray;
+  /*background: darkgray;*/
   color: #ffffff;
   border: none;
   border-radius: 5px;
@@ -47,7 +47,7 @@ a:focus {
 
 .button-primary:hover,
 .button-primary:focus {
-  background: #27C895;
+  /*background: #27C895;*/
   color: #ffffff;
 }
 
@@ -254,6 +254,22 @@ form input {
   padding-top: 20px;
 }
 
+.padding-10 {
+  padding: 10px;
+}
+
+.padding-top-10 {
+  padding-top: 10px;
+}
+
+.margin-10 {
+  margin: 10px;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+
 .margin-20 {
   margin: 20px;
 }
@@ -273,14 +289,19 @@ form input {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.field-error-container {
+  /*border: 2px red solid;*/
+  margin: 10px;
+  padding: 10px;
+}
 /*************************************************/
 /*************************************************/
 /*************************************************/
-.alert-error {
+.alert-animation {
   background: #f2edda;
   padding: 10px;
   font-size: .9em;
-  display: inline-block;
   animation: 2s alertAnim forwards;
 }
 
@@ -295,3 +316,4 @@ form input {
     transform: translateY(0);
   }
 }
+

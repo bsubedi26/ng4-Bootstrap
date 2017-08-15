@@ -30,5 +30,14 @@ export const routerConfig: Routes = [
     path: 'chat',
     loadChildren: 'app/components/chat/chat.module#ChatModule'
   },
+  {
+    path: 'settings',
+    loadChildren: 'app/components/settings/settings.module#SettingsModule'
+  },
+  {
+    path: 'midi',
+    loadChildren: 'app/components/midi/midi.module#MidiModule'
+  },
+
 
 ];

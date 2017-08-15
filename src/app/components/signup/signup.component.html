@@ -1,9 +1,18 @@
 <main class="login container">
   <div class="row">
-    <div class="col-12 col-6-tablet push-3-tablet text-center heading">
+    <div class="col-12 col-6-tablet push-3-tablet text-center heading jumbotron">
       <h1 class="font-100">Account Signup</h1>
     </div>
   </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div [ngClass]="m.success ? 'alert-success' : 'alert-danger'" class="alert alert-animation" role="alert" *ngFor="let m of messages">
+          <h5><strong>{{ m.message }}</strong></h5>
+        </div>
+      </div>
+    </div>
+
   <div class="row">
     <div class="col-12 col-6-tablet push-3-tablet col-4-desktop push-4-desktop">
 
@@ -11,27 +20,23 @@
         <fieldset>
           <input class="block" formControlName="email" placeholder="Email">
         </fieldset>
-        <div *ngIf="!signupForm.controls['email'].valid && signupForm.controls['email'].touched">
-          <span *ngIf="signupForm.controls['email'].hasError('required')" class="alert-error">This field is required!</span>
-          <span *ngIf="signupForm.controls['email'].hasError('minlength')" class="alert-error">Please enter a value longer than 6 characters!</span>
+        <div class="field-error-container" *ngIf="!signupForm.controls['email'].valid && signupForm.controls['email'].touched">
+          <span *ngIf="signupForm.controls['email'].hasError('required')" class="alert alert-danger alert-animation text-danger">This field is required!</span>
+          <span *ngIf="signupForm.controls['email'].hasError('minlength')" class="alert alert-danger alert-animation text-danger">Please enter a value longer than 3 characters!</span>
         </div>
         <fieldset>
           <input class="block" type="password" formControlName="password" placeholder="Password">
         </fieldset>
-        <div *ngIf="!signupForm.controls['password'].valid && signupForm.controls['password'].touched">
-          <span *ngIf="signupForm.controls['password'].hasError('required')" class="alert-error">This field is required!</span>
-          <span *ngIf="signupForm.controls['password'].hasError('minlength')" class="alert-error">Please enter a value longer than 6 characters!</span>
+        <div class="field-error-container" *ngIf="!signupForm.controls['password'].valid && signupForm.controls['password'].touched">
+          <span *ngIf="signupForm.controls['password'].hasError('required')" class="alert alert-danger alert-animation text-danger">This field is required!</span>
+          <span *ngIf="signupForm.controls['password'].hasError('minlength')" class="alert alert-danger alert-animation text-danger">Please enter a value longer than 3 characters!</span>
         </div>
 
         <span>Already have an Account? <a class="text-primary" routerLink="/login">Login here!</a></span>
-        <button [disabled]="!signupForm.valid" type="submit" id="login" class="button button-primary block signup">Submit</button>
+        <!--<button [disabled]="!signupForm.valid" type="submit" id="login" class="btn btn-primary block signup">Submit</button>-->
+        <button [disabled]="!signupForm.valid" type="submit" id="login" class="btn-success button button-primary block signup">Submit</button>
       </form>
-        
-        <div class="d-flex justify-content-center">
-          <ul class="no-list-decoration">
-            <li class="alert alert-danger" *ngFor="let m of messages">{{m}}</li>
-          </ul>
-        </div>
+        <button routerLink="/login" *ngIf="successForm" type="submit" id="login" class="btn-primary button button-primary block alert-animation">Go Login</button>
 
     </div>
   </div>

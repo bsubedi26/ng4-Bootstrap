@@ -1,36 +1,21 @@
 import { Action } from '@ngrx/store';
 import * as authActions from 'app/common/actions/auth.actions';
-
-export interface IAuthState {
-  isLoggedIn: boolean;
-  user: Object;
-  accessToken: string;
-  error: Object;
-}
+import IAuthState from '../states/auth.state';
 
 const initialState: IAuthState = {
   isLoggedIn: false,
   error: {},
-  user: {
-    email: 'INIT',
-    _id: 'INIT'
-  },
   accessToken: undefined,
-  
 };
 
-
-
-// export const reducer = (state = initialState, action: authActions.Actions): IAuthState => {
-export function reducer(state = initialState, action: authActions.Actions): IAuthState {
+export default (state = initialState, action: authActions.Actions): IAuthState => {
   switch (action.type) {
 
     case authActions.LOGIN_SUCCESS:
-    const { accessToken, user } = action.payload;
+    const { accessToken } = action.payload;
       return {
         ...state,
         accessToken,
-        user,
         isLoggedIn: true
       };
 

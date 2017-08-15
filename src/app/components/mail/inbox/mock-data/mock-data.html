@@ -1,0 +1,13 @@
+<table cellpadding="1" cellspacing="1">
+<tr>
+  <th *ngFor="let columnName of mailStateData?.cols">{{columnName}}</th>
+</tr>
+
+  <tr *ngFor="let item of mailStateData?.data">
+    <td>{{item[0]}}</td>
+    <td>{{item[1]}}</td>
+    <td>{{item[2]}}</td>
+    <td>{{item[3]}}</td>
+  </tr>
+
+</table>

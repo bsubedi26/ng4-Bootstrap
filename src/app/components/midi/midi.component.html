@@ -1,0 +1,21 @@
+<main class="container">
+  <!--<img src="/assets/images/bunny.jpg" alt="" />-->
+  <button *ngFor="let option of genres" (click)="filterBtnClick(option)" class="btn btn-outline-primary margin-10">{{option}}</button>
+
+  <table cellpadding="1" cellspacing="1">
+    <tr>
+      <th>Name</th>
+      <th>Genre</th>
+      <!--<th>Likes</th>-->
+      <!--<th>Download</th>-->
+    </tr>
+
+    <tr *ngFor="let item of filteredResults; let i=index;">
+      <!--<a class="cursor-pointer" [href]="downloadUrl+item.name" download><td>{{item.name}}</td></a>-->
+      <a class="cursor-pointer"(click)="downloadClick(item)"><td>{{item.name | CapitalizeFirst | RemoveUnderscores | RemoveDashes | RemoveFileExtensionPipe}}</td></a>
+      <td>{{item.genre}}</td>
+    </tr>
+
+  </table>
+
+</main>

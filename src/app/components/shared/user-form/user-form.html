@@ -1,0 +1,21 @@
+<form [formGroup]="form" (ngSubmit)="handleSubmit(form.value)">
+
+  <div *ngFor="let field of fields">
+    <fieldset>
+      <input class="block" formControlName={{field.name}} placeholder="{{ field.name | CapitalizeFirst }}">
+    </fieldset>
+    <div class="field-error-container" *ngIf="!form.controls['email'].valid && form.controls['email'].touched">
+      <span *ngIf="form.controls['email'].hasError('required')" class="alert alert-danger alert-animation text-danger">This field is required!</span>
+      <span *ngIf="form.controls['email'].hasError('minlength')" class="alert alert-danger alert-animation text-danger">Please enter a value longer than 3 characters!</span>
+    </div>
+
+    <!--<div class="field-error-container" *ngIf="!form.controls['password'].valid && form.controls['password'].touched">
+      <span *ngIf="form.controls['password'].hasError('required')" class="alert alert-danger alert-animation text-danger">This field is required!</span>
+      <span *ngIf="form.controls['password'].hasError('minlength')" class="alert alert-danger alert-animation text-danger">Please enter a value longer than 3 characters!</span>
+    </div>-->
+    </div>
+
+  <span>Already have an Account? <a class="text-primary" routerLink="/login">Login here!</a></span>
+  <!--<button [disabled]="!form.valid" type="submit" id="login" class="btn btn-primary block signup">Submit</button>-->
+  <button [disabled]="!form.valid" type="submit" id="login" class="btn-success button button-primary block signup">Submit</button>
+</form>

@@ -10,6 +10,8 @@ const configuration = require('feathers-configuration');
 const hooks = require('feathers-hooks');
 const rest = require('feathers-rest');
 const socketio = require('feathers-socketio');
+const GithubStrategy = require('passport-github').Strategy;
+const oauth2 = require('feathers-authentication-oauth2');
 
 const middleware = require('./middleware');
 const services = require('./services');
@@ -37,12 +39,22 @@ app.use(bodyParser.json());
 app.configure(hooks());
 app.configure(mongoose);
 app.configure(rest());
-app.configure(socketio());
-
-// app.configure(authentication);
+app.configure(socketio( io => {
+  io.on('connection', function (socket) {
+    console.log('socket::init::connection');
+    socket.emit('connection', { hello: 'world' });
+  });
+}));
 
 // Set up our services (see `services/index.js`)
 app.configure(services);
+// app.configure(oauth2({
+//   name: 'github',
+//   Strategy: GithubStrategy,
+//   clientID: app.get('oAuth').github.id,
+//   clientSecret: app.get('oAuth').github.secret,
+//   scope: ['user']
+// }))
 // Configure middleware (see `middleware/index.js`) - always has to be last
 app.configure(middleware);
 app.hooks(appHooks);

@@ -4,6 +4,8 @@ const users = require('./users/users.service.js');
 const rooms = require('./rooms/rooms.service.js');
 const todos = require('./todos/todos.service.js');
 const emails = require('./emails/emails.service.js');
+const midi = require('./midi/midi.service.js');
+
 module.exports = function () {
   const app = this; // eslint-disable-line no-unused-vars
   app.configure(authentication);
@@ -12,4 +14,5 @@ module.exports = function () {
   app.configure(rooms);
   app.configure(todos);
   app.configure(emails);
+  app.configure(midi);
 };

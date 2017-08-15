@@ -1,3 +1,4 @@
+import { FeatherService } from 'app/providers/feather.service';
 import { Router } from '@angular/router';
 import { Effect, Actions } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
@@ -14,7 +15,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/delay';
-import { AuthService } from 'app/services/authentication.service';
 
 
 function simulateHttp(val: any, delay: number) {
@@ -36,14 +36,14 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   navigateAfterUserCreate$: Observable<Action> = this.actions$
     .ofType(authActions.CREATE_USER_SUCCESS)
-    .do(() => this._navigate(['/login']))
+    // .do(() => this._navigate(['/login']))
 
 
   @Effect({ dispatch: false })
   userLogout$: Observable<Action> = this.actions$
     .ofType(authActions.LOGOUT)
     .do(() => {
-      this.authService.logout();
+      this.featherService.logout();
       this._navigate(['/login']);
     })
 
@@ -51,7 +51,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions, 
     public router: Router, 
-    private authService: AuthService,
+    private featherService: FeatherService,
     private store: Store<any>
   ) { }
 

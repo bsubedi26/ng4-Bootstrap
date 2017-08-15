@@ -6,24 +6,33 @@ import { storeLogger } from 'ngrx-store-logger';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
 import { environment } from '../../../environments/environment';
-import * as fromAuth from './auth.reducer';
-// import { IAuthState as authState, reducer as authReducer } from './auth.reducer';
+import customLogger from '../middlewares/logger';
+
+import authReducer from './auth.reducer';
+import userReducer from './user.reducer';
+import mailReducer from './mail.reducer';
+import IAuthState from '../states/auth.state';
+import IUserState from '../states/user.state';
 
 export interface State {
   // auth: authState;
-  auth: fromAuth.IAuthState;
+  auth: IAuthState;
+  user: IUserState;
+  mail: any;
 }
 
 export const reducers: ActionReducerMap<State> = {
-  // auth: authReducer,
-  auth: fromAuth.reducer,
+  auth: authReducer,
+  user: userReducer,
+  mail: mailReducer,
 };
 
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
 const developmentReducer = [
-  // storeFreeze,
-  storeLogger(),
+  // storeLogger(),
+  customLogger,
+  storeFreeze,
   localStorageSync({
     keys: ['auth'],
     rehydrate: true

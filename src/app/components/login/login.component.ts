@@ -1,8 +1,8 @@
+import { FeatherService } from 'app/providers/feather.service';
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthService } from 'app/services/authentication.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as authActions from '../../common/actions/auth.actions';
 
@@ -18,15 +18,15 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private store: Store<any>,
-    private authService: AuthService,
+    private featherService: FeatherService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: [null, Validators.compose([Validators.required, Validators.minLength(6)]) ],
-      password: [null, Validators.compose([Validators.required, Validators.minLength(6)]) ],
+      email: [null, Validators.compose([Validators.required, Validators.minLength(3)]) ],
+      password: [null, Validators.compose([Validators.required, Validators.minLength(3)]) ],
     });
 
     // this.redirectMessage = this.route.snapshot.params.redirectMessage;
@@ -41,10 +41,11 @@ export class LoginComponent implements OnInit {
     const { email, password } = formValues;
 
     try {
-      const authResponse: any = await this.authService.authenticate({ strategy: 'local', email, password })
+      const authResponse: any = await this.featherService.authenticate({ strategy: 'local', email, password })
       this.store.dispatch(new authActions.LoginSuccess(authResponse))
     } catch (response) {
       console.log('.catch login ', response)
+      this.messages.pop()
       this.messages.unshift(response.message)
       // this.store.dispatch(new authActions.LoginError(response))
 

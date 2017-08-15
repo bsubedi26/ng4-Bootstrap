@@ -12,6 +12,9 @@ import { SentComponent } from './sent/sent.component';
 import { SpamComponent } from'./spam/spam.component';
 import { TrashComponent } from './trash/trash.component';
 import { MailNavbarComponent } from './mail-navbar/mail-navbar.component';
+import { FilterButtonsComponent } from "app/components/mail/inbox/filter-buttons/filter-buttons.component";
+
+import { MockData } from './inbox/mock-data/mock-data';
 
 @NgModule({
   imports: [
@@ -21,6 +24,8 @@ import { MailNavbarComponent } from './mail-navbar/mail-navbar.component';
 ],
   exports: [],
   declarations: [
+    MockData,
+
     MailComponent,
 
     InboxComponent,
@@ -28,7 +33,9 @@ import { MailNavbarComponent } from './mail-navbar/mail-navbar.component';
     SentComponent,
     SpamComponent,
     TrashComponent,
-    MailNavbarComponent
+    MailNavbarComponent,
+    FilterButtonsComponent
+    
   ],
   providers: [],
 })

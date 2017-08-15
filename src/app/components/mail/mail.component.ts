@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { MailService } from 'app/services/mail.service';
+import { FeatherService } from "app/providers/feather.service";
 
 @Component({
   selector: 'app-mail',
@@ -20,7 +20,8 @@ export class MailComponent implements OnInit {
     { path: 'trash', name: 'Trash' },
   ]
 
-  authState: any;
+  mailService: any;
+  userState: any;
   activeRoute: any;
   messages: Array<any> = [];
   
@@ -28,10 +29,11 @@ export class MailComponent implements OnInit {
   constructor(
     private store: Store<any>,
     private router: Router,
-    private mailService: MailService,
+    featherService: FeatherService,
   ) {
-    this.store.select(state => state.auth)
-    .subscribe(auth => this.authState = auth)
+    this.mailService = featherService.service('emails')
+    this.store.select(state => state.user)
+    .subscribe(response => this.userState = response)
   }
 
   handleRouteClick(routeClicked) {
@@ -62,7 +64,7 @@ export class MailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.emailFrom = this.authState.user.email;
+    this.emailFrom = this.userState.credentials.email;
   }
 
 }

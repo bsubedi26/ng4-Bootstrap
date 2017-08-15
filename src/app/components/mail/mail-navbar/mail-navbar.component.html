@@ -1,9 +1,22 @@
 <div class="col-3 mail-route-section">
-  <ul class="no-list-decoration">
-    <li *ngFor="let navigation of navigations" class="nav-item active">
-      <!--<a class="nav-link" routerLink={{navigation.path}}>{{navigation.name}}</a>-->
-      <a class="nav-link cursor-pointer" (click)="handleRouteClick(navigation)">{{navigation.name}}</a>
-      <hr />
-    </li>
-  </ul>
+  
+
+
+<div class="card">
+  <div class="card-header">
+    Quick Links
+  </div>
+  <div class="card-block">
+    <!--<h4 class="card-title">Special title treatment</h4>-->
+      <ul class=" no-list-decoration">
+        <li *ngFor="let navigation of navigations" class="nav-item active">
+          <!--<a class="nav-link" routerLink={{navigation.path}}>{{navigation.name}}</a>-->
+          <button class="nav-link cursor-pointer btn btn-outline-color btn-block" (click)="handleRouteClick(navigation)">{{navigation.name}}</button>
+          <hr />
+        </li>
+      </ul>
+    <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+  </div>
 </div>
+</div>
+

@@ -1,4 +1,3 @@
-import { MailService } from 'app/services/mail.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
@@ -25,7 +24,6 @@ export class MailNavbarComponent implements OnInit {
   constructor(
     private store: Store<any>,
     private router: Router,
-    private mailService: MailService
   ) { 
 
   }

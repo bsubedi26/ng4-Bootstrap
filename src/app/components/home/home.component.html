@@ -1,8 +1,8 @@
 <main class="container">
 
   <div class="jumbotron margin-20">
-    <h5 class="todo-title"><strong>Email:</strong> {{auth.user.email}}</h5>
-    <h5 class="todo-title"><strong>userID: </strong>{{auth.user._id}}</h5>
+    <h5 class="todo-title"><strong>Email:</strong> {{user.credentials.email}}</h5>
+    <h5 class="todo-title"><strong>userID: </strong>{{user.credentials._id}}</h5>
     <h5 class="todo-title">Add Todos.</h5>
 
     <form (submit)="handleSubmit(todo.value); todo.value='' ">

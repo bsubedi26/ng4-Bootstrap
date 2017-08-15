@@ -3,8 +3,14 @@
 
   <div class="row">
     <div class="col-9 mail-content-section">
-      <button (click)="check()" class="btn btn-primary">Check Inbox</button>
-      <h5 *ngIf="user">{{user}}</h5>
+
+       <mail-inbox-filter-buttons></mail-inbox-filter-buttons>
+      <!--<h5 *ngIf="user">{{user}}</h5>-->
+
+
+      <mail-inbox-mock-data [mailStateData]="mailData"></mail-inbox-mock-data>
+
+
       <div *ngFor="let item of userInbox">
         <h5>From: {{item.fromEmail}}</h5>
         <h5>Subject: {{item.subject}}</h5>

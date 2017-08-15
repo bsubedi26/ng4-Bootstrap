@@ -4,9 +4,6 @@ import { Http } from '@angular/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { MessageService } from 'app/services/message.service';
-import { RoomService } from 'app/services/room.service';
-import { UserService } from 'app/services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -25,14 +22,18 @@ export class ChatComponent implements OnInit {
   activeRoom = 'general';
   activeRoomId: string;
 
+  messageService: any;
+  roomService: any;
+  userService: any;
+
   constructor(
     private dataService: DataService,
-    private _feathers: FeatherService,
-    private messageService: MessageService,
-    private roomService: RoomService,
-    private userService: UserService,
+    private featherService: FeatherService,
     private formBuilder: FormBuilder
   ) {
+    this.messageService = featherService.service('messages');
+    this.roomService = featherService.service('rooms');
+    this.userService = featherService.service('users');
     this.messageForm = this.formBuilder.group({
       message: [null, Validators.required]
     });
@@ -51,7 +52,7 @@ export class ChatComponent implements OnInit {
   async ngOnInit() {
     this.initEventListeners();
     // authenticate before query (HACK FIX for browser refreshes)
-    const authResponse: any = await this._feathers.authenticate()
+    const authResponse: any = await this.featherService.authenticate()
     this.currentUser = authResponse.user
     this.users = await this.userService.find()
   }
@@ -75,7 +76,7 @@ export class ChatComponent implements OnInit {
   }
 
   logOut() {
-    this._feathers.logout();
+    this.featherService.logout();
   }
 
 

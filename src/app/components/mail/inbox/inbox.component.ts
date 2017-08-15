@@ -1,6 +1,6 @@
-import { MailService } from 'app/services/mail.service';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: 'app-mail-inbox',
@@ -9,35 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InboxComponent implements OnInit {
   
-  authState: any;
-  user: any = 'initialvalue';
-  userInbox: any;
+  mailData$: Observable<any>;
+  mailData: Object;
+
 
   constructor(
-    private store: Store<any>,
-    private mailService: MailService
+    public store: Store<any>,
   ) { 
-    this.store.select(state => state.auth)
-      .map(each => console.log('eacc', each))
-      .delay(10000)
-      .subscribe((state: any) => this.user = state.user.email)
-      // .subscribe(auth => {
-      //   console.log('aa', auth)
-      // })
-  }
-
-  check() {
-    console.log(this)
-    // this.store.dispatch({ type: 'CHANGE_AUTH_TEST' })
+    this.mailData$ = store.select(state => state.mail)
   }
 
   ngOnInit() {
-    // this.mailService.find({ query: { toUserId: this.authState.user._id } })
-    // .then(response => {
-    //   this.userInbox = response
-    // })
-    // .catch(error => {
-    //   console.log('ERROR ', error)
-    // })
+    this.mailData$.subscribe(mail => {
+      const { inbox } = mail;
+      this.mailData = inbox;
+    })
   }
+ 
+
 }

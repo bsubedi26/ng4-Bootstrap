@@ -1,5 +1,5 @@
+import { FeatherService } from 'app/providers/feather.service';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'app/services/authentication.service';
 import { Store } from '@ngrx/store';
 import * as authActions from 'app/common/actions/auth.actions';
 
@@ -16,6 +16,8 @@ export class NavbarComponent implements OnInit {
     { path: 'home', name: 'Home' },
     { path: 'mail', name: 'Mail' },
     { path: 'chat', name: 'Chat' },
+    { path: 'settings', name: 'Account Settings' },
+    { path: 'midi', name: 'Midi Library' },
   ]
 
   visitorNavigations: Array<any> = [
@@ -24,9 +26,10 @@ export class NavbarComponent implements OnInit {
     { path: 'signup', name: 'Signup' },
     { path: 'mail', name: 'Mail' },
     { path: 'chat', name: 'Chat' },
+    { path: 'midi', name: 'Midi Library' },
   ]
 
-  constructor(private store: Store<any>, private authService: AuthService) {
+  constructor(private store: Store<any>, private featherService: FeatherService) {
     
    }
 

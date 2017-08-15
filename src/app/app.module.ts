@@ -37,8 +37,7 @@ import { AllProviders } from 'app/providers';
     }),
     AllEffects,
     SharedModule,
-    NavbarModule
-
+    NavbarModule,
   ],
   providers: [
     AllServices,

@@ -1,6 +1,6 @@
+import { FeatherService } from 'app/providers/feather.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { TodoService } from 'app/services/todo.service';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -10,16 +10,16 @@ import { Store } from '@ngrx/store';
 })
 export class HomeComponent implements OnDestroy, OnInit {
 
-  auth: any;
+  user: any;
   private todos: any = [];
   private subscription: Subscription;
 
   constructor(
-    private todoService: TodoService,
+    private featherService: FeatherService,
     private store: Store<any>,
   ) {
-    this.store.select(state => state.auth)
-    .subscribe(response => this.auth = response)
+    this.store.select(state => state.user)
+    .subscribe(response => this.user = response)
   }
 
   public ngOnInit(): void {
